@@ -13,6 +13,7 @@ import com.amplitude.api.Amplitude;
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    private MyAmplitudeClient myAmplitudeClient;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -39,13 +40,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Amplitude.getInstance().initialize(this, "9d9ff2d49d2d7ec20eb41f815fb27b56").enableForegroundTracking(getApplication());
+        myAmplitudeClient = MyAmplitudeClient.getInstance("9d9ff2d49d2d7ec20eb41f815fb27b56");
+        myAmplitudeClient.enableForegroundTracking(getApplication());
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        Amplitude.getInstance().logEvent("APP_STARTED");
+        myAmplitudeClient.logEvent("Hello World");
     }
 
     public void clicked(View view) {
